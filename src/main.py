@@ -9,6 +9,7 @@ from pathlib import Path
 from loguru import logger
 import yaml
 from datetime import datetime
+import pandas as pd
 
 # Add src to path
 sys.path.append(str(Path(__file__).parent))
@@ -70,7 +71,6 @@ class EmissionPipeline:
         logger.info("=" * 80)
         
         # Load processed data
-        import pandas as pd
         df = pd.read_parquet(data_path)
         
         # Engineer features
@@ -93,7 +93,6 @@ class EmissionPipeline:
             scenarios = ['NZE', 'APS', 'STEPS']
         
         # Load featured data
-        import pandas as pd
         df = pd.read_parquet(data_path)
         
         # Create scenario comparison
@@ -125,8 +124,6 @@ class EmissionPipeline:
         logger.info("=" * 80)
         logger.info("PHASE 4: REPORT GENERATION")
         logger.info("=" * 80)
-        
-        import pandas as pd
         
         # Load results
         df_proj = pd.read_parquet(results['projections'])

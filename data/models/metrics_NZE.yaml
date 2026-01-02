@@ -1,0 +1,37 @@
+cv_r2_mean: !!python/object/apply:numpy.core.multiarray.scalar
+- &id001 !!python/object/apply:numpy.dtype
+  args:
+  - f8
+  - false
+  - true
+  state: !!python/tuple
+  - 3
+  - <
+  - null
+  - null
+  - null
+  - -1
+  - -1
+  - 0
+- !!binary |
+  Vjf0fphh6z8=
+cv_r2_std: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  91IDoK/esj8=
+mae: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  Kpxh0LBKrkA=
+mape: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  MPgMGIfUEEA=
+r2: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  My3SvKnk7z8=
+rmse: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  p/UeVWeHwkA=

@@ -1,0 +1,80 @@
+{
+  "pipeline_run": "2026-01-02T18:54:17.650794",
+  "total_projections": 90,
+  "scenarios_analyzed": [
+    "NZE"
+  ],
+  "regions_covered": 5,
+  "years_projected": [
+    2025,
+    2030,
+    2035,
+    2040,
+    2045,
+    2050
+  ],
+  "global_summary_2030": {
+    "NZE": {
+      "total_capacity_mw": 6768481.01,
+      "total_generation_mwh": 14717185970.15,
+      "total_emissions_avoided_tco2e": 58747237.57
+    },
+    "APS": {
+      "total_capacity_mw": 5183943.78,
+      "total_generation_mwh": 11271814853.259998,
+      "total_emissions_avoided_tco2e": 44994198.37
+    },
+    "STEPS": {
+      "total_capacity_mw": 4150872.2299999995,
+      "total_generation_mwh": 9025534429.33,
+      "total_emissions_avoided_tco2e": 36027622.16
+    }
+  },
+  "global_summary_2050": {
+    "NZE": {
+      "total_capacity_mw": 75630326.86000001,
+      "total_generation_mwh": 164449348740.93,
+      "total_emissions_avoided_tco2e": 635654776.77
+    },
+    "APS": {
+      "total_capacity_mw": 23810139.63,
+      "total_generation_mwh": 51772379126.7,
+      "total_emissions_avoided_tco2e": 200118518.85000002
+    },
+    "STEPS": {
+      "total_capacity_mw": 9088759.780000001,
+      "total_generation_mwh": 19762450975.93,
+      "total_emissions_avoided_tco2e": 76388848.37
+    }
+  },
+  "risk_summary": {
+    "avg_transition_risk": 0.5807834674323011,
+    "high_risk_regions": [
+      {
+        "region": "Other",
+        "year": 2050,
+        "transition_risk_score": 0.879826517224184
+      },
+      {
+        "region": "Asia",
+        "year": 2050,
+        "transition_risk_score": 0.8798265172216323
+      },
+      {
+        "region": "North America",
+        "year": 2050,
+        "transition_risk_score": 0.8798265172063278
+      },
+      {
+        "region": "Other",
+        "year": 2045,
+        "transition_risk_score": 0.8193788832373711
+      },
+      {
+        "region": "Asia",
+        "year": 2045,
+        "transition_risk_score": 0.8193788832137027
+      }
+    ]
+  }
+}

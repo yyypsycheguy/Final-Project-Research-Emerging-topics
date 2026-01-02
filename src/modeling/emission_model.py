@@ -10,7 +10,11 @@ from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import xgboost as xgb
-import lightgbm as lgb
+try:
+    import lightgbm as lgb
+    LIGHTGBM_AVAILABLE = True
+except ImportError:
+    LIGHTGBM_AVAILABLE = False
 import joblib
 from pathlib import Path
 from loguru import logger
@@ -93,6 +97,8 @@ class EmissionProjectionModel:
             model = xgb.XGBRegressor(**params)
         
         elif model_type == 'lightgbm':
+            if not LIGHTGBM_AVAILABLE:
+                raise ValueError("LightGBM is not available. Install it or use 'xgboost' or 'random_forest'.")
             params = self.model_config['lightgbm']
             model = lgb.LGBMRegressor(**params)
         

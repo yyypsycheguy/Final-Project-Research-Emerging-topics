@@ -50,6 +50,10 @@ pip install -r requirements.txt
 ### Run the Pipeline
 
 ```bash
+# Activate conda environment 
+conda create -n emission_env python=3.11 -y
+# Install all dependencies
+pip install -r ruquirements.txt
 # Full pipeline execution
 python src/main.py --scenario all
 
@@ -58,6 +62,9 @@ python src/main.py --scenario NZE
 
 # API deployment
 python src/api/app.py
+
+# Or using uvicorn directly (recommended for production)
+uvicorn src.api.app:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 ### Interactive Analysis
@@ -99,20 +106,7 @@ pytest tests/
 pytest --cov=src tests/
 ```
 
-## 📝 Documentation
-
-- [Data Dictionary](docs/data_dictionary.md)
-- [Model Methodology](docs/methodology.md)
-- [API Reference](docs/api_reference.md)
-
-## 🤝 Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
-
 ## 📄 License
 
 MIT License - See [LICENSE](LICENSE) for details.
 
-## 📧 Contact
-
-For questions or issues, please open a GitHub issue or contact the maintainers.

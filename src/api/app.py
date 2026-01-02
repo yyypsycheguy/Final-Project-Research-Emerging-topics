@@ -93,18 +93,9 @@ async def startup_event():
 
 @app.get("/", response_model=Dict)
 async def root():
-    """Root endpoint with API information"""
-    return {
-        "name": "Solar Emission Projection API",
-        "version": "1.0.0",
-        "endpoints": {
-            "projections": "/api/v1/projections",
-            "risk": "/api/v1/risk",
-            "scenarios": "/api/v1/scenarios",
-            "regions": "/api/v1/regions",
-            "health": "/health"
-        }
-    }
+    """Root endpoint - redirects to API documentation"""
+    from fastapi.responses import RedirectResponse
+    return RedirectResponse(url="/docs")
 
 @app.get("/health", response_model=HealthResponse)
 async def health_check():
@@ -295,7 +286,7 @@ if __name__ == "__main__":
     
     # Run server
     uvicorn.run(
-        app,
+        "src.api.app:app",
         host=config['outputs']['api']['host'],
         port=config['outputs']['api']['port'],
         reload=config['outputs']['api']['reload']
