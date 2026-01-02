@@ -1,6 +1,6 @@
 """
 Main Pipeline Orchestrator
-Executes the complete emission projection and transition risk analysis workflow
+Executes the complete emission projection and transition risk analysis workflow: ingestion → feature engineering → modeling → reports
 """
 
 import sys
