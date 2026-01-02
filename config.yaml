@@ -1,0 +1,185 @@
+# Emission Projection Configuration
+# IEA Scenario Parameters and Model Settings
+
+project:
+  name: "Solar Power Emission Projection Pipeline"
+  version: "1.0.0"
+  author: "Data Science Team"
+  created: "2025-01-01"
+
+data:
+  raw_data_path: "data/raw/Global-Solar-Power-Tracker-February-2025.xlsx"
+  processed_data_path: "data/processed/"
+  model_path: "data/models/"
+  
+  sheets:
+    large_scale: "20 MW+"
+    small_scale: "1-20 MW"
+  
+  # Data validation thresholds
+  validation:
+    min_capacity_mw: 1
+    max_capacity_mw: 10000
+    valid_years_range: [2000, 2050]
+
+# IEA Scenario Definitions
+scenarios:
+  NZE:
+    name: "Net Zero Emissions by 2050"
+    description: "1.5°C pathway with aggressive renewables deployment"
+    solar_growth_rate: 0.15  # 15% annual growth
+    coal_retirement_rate: 0.08
+    gas_retirement_rate: 0.05
+    carbon_price_2030: 130  # USD/tCO2
+    carbon_price_2050: 250
+    electrification_rate: 0.85
+    
+  APS:
+    name: "Announced Pledges Scenario"
+    description: "Current national climate commitments"
+    solar_growth_rate: 0.10  # 10% annual growth
+    coal_retirement_rate: 0.05
+    gas_retirement_rate: 0.03
+    carbon_price_2030: 75
+    carbon_price_2050: 140
+    electrification_rate: 0.65
+    
+  STEPS:
+    name: "Stated Policies Scenario"
+    description: "Conservative baseline with existing policies"
+    solar_growth_rate: 0.06  # 6% annual growth
+    coal_retirement_rate: 0.02
+    gas_retirement_rate: 0.01
+    carbon_price_2030: 30
+    carbon_price_2050: 60
+    electrification_rate: 0.50
+
+# Emission Factors (kgCO2e/MWh)
+emission_factors:
+  # Solar lifecycle emissions
+  solar_pv_lifecycle: 45  # Manufacturing, installation, decommissioning
+  solar_thermal_lifecycle: 50
+  
+  # Displaced grid emissions (regional averages)
+  grid_intensity:
+    global_average: 475
+    oecd: 350
+    non_oecd: 580
+    china: 550
+    india: 630
+    usa: 380
+    eu: 275
+  
+  # Manufacturing emissions by region
+  manufacturing:
+    china: 55  # kgCO2e/MWh capacity
+    europe: 35
+    usa: 40
+    rest_of_world: 50
+
+# Model Configuration
+modeling:
+  projection_horizon: 2050
+  base_year: 2024
+  
+  # Feature engineering
+  features:
+    temporal:
+      - "start_year"
+      - "years_operational"
+      - "age_category"
+    
+    geographic:
+      - "region"
+      - "country"
+      - "subregion"
+      - "latitude"
+      - "longitude"
+    
+    capacity:
+      - "capacity_mw"
+      - "capacity_category"
+      - "technology_type"
+    
+    status:
+      - "operational_status"
+      - "retirement_risk"
+  
+  # Model hyperparameters
+  xgboost:
+    n_estimators: 200
+    max_depth: 8
+    learning_rate: 0.05
+    subsample: 0.8
+    colsample_bytree: 0.8
+    random_state: 42
+  
+  lightgbm:
+    n_estimators: 200
+    max_depth: 8
+    learning_rate: 0.05
+    num_leaves: 31
+    random_state: 42
+  
+  # Cross-validation
+  cv_folds: 5
+  test_size: 0.2
+  random_state: 42
+
+# Transition Risk Metrics
+risk_assessment:
+  # Stranded asset risk factors
+  stranded_asset_risk:
+    age_threshold_years: 20
+    capacity_utilization_min: 0.3
+    policy_risk_weight: 0.4
+    technology_risk_weight: 0.3
+    market_risk_weight: 0.3
+  
+  # Policy sensitivity
+  policy_impact:
+    carbon_price_elasticity: -0.15
+    renewable_subsidy_elasticity: 0.25
+    grid_parity_threshold: 0.05  # USD/kWh
+
+# Output Configuration
+outputs:
+  reports:
+    path: "outputs/reports/"
+    formats: ["html", "pdf", "json"]
+  
+  visualizations:
+    path: "outputs/visualizations/"
+    formats: ["png", "svg", "html"]
+    dpi: 300
+  
+  api:
+    host: "0.0.0.0"
+    port: 8000
+    reload: true
+    workers: 4
+
+# Logging
+logging:
+  level: "INFO"
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}"
+  file: "logs/pipeline.log"
+  rotation: "100 MB"
+  retention: "30 days"
+
+# Automation
+automation:
+  schedule:
+    data_refresh: "0 2 * * 0"  # Weekly on Sunday at 2 AM
+    model_retrain: "0 3 1 * *"  # Monthly on 1st at 3 AM
+  
+  notifications:
+    email: true
+    slack: false
+
+# Data Quality Checks
+data_quality:
+  completeness_threshold: 0.95
+  duplicate_check: true
+  outlier_detection: true
+  schema_validation: true
